@@ -18,6 +18,7 @@ package main
 
 import (
 	"flag"
+	"os"
 
 	"k8s.io/klog/v2"
 
@@ -35,6 +36,7 @@ func main() {
 	if err := server.Run(server.Config{
 		PodresourcesDirectory: podresDir,
 	}); err != nil {
-		klog.Fatalf("server run failed: %v", err)
+		klog.ErrorS(err, "server run failed", "directory", podresDir)
+		os.Exit(1)
 	}
 }
