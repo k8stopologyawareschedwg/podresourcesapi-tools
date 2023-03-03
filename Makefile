@@ -1,5 +1,7 @@
 all: client fakeserver
 
+win: client-win fakeserver-win
+
 .PHONY: vet
 vet:
 	go vet ./...
@@ -24,8 +26,14 @@ update-version:
 client-static: outdir update-version
 	CGO_ENABLED=0 go build -o _out/client ./cmd/client
 
+client-win: outdir update-version
+	GOOS=windows go build -o _out/client.exe ./cmd/client
+
 fakeserver-static: outdir update-version
 	CGO_ENABLED=0 go build -o _out/fakeserver ./cmd/fakeserver
+
+fakeserver-win: outdir update-version
+	GOOS=windows go build -o _out/fakeserver.exe ./cmd/fakeserver
 
 client: outdir update-version
 	go build -o _out/client ./cmd/client/
