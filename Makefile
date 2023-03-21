@@ -2,10 +2,6 @@ all: client fakeserver
 
 win: client-win fakeserver-win
 
-.PHONY: vet
-vet:
-	go vet ./...
-
 .PHONY: clan
 clean:
 	rm -rf _out
@@ -52,3 +48,7 @@ test-unit:
 gofmt:
 	@echo "Running gofmt"
 	gofmt -s -w `find . -path ./vendor -prune -o -type f -name '*.go' -print`
+
+.PHONY: vet
+vet:
+	go vet ./cmd/... ./pkg/...
